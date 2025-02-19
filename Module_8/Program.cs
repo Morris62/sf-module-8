@@ -30,23 +30,34 @@ class Program
     {
         string path = @"/";
 
-        if (Directory.Exists(path))
+        try
         {
-            Console.WriteLine("Папки:");
-            var dirs = Directory.GetDirectories(path);
-            foreach (var dir in dirs)
+            if (Directory.Exists(path))
             {
-                Console.WriteLine(dir);
+                Console.WriteLine("Папки:");
+                var dirs = Directory.GetDirectories(path);
+                foreach (var dir in dirs)
+                {
+                    Console.WriteLine(dir);
+                }
+
+                Console.Write(Environment.NewLine);
+
+                Console.WriteLine("Файлы:");
+                var files = Directory.GetFiles(path);
+                foreach (var file in files)
+                {
+                    Console.WriteLine(file);
+                }
+
+                Console.Write(Environment.NewLine);
+
+                Console.WriteLine($"Количество: {dirs.Length + files.Length}");
             }
-            
-            Console.Write(Environment.NewLine);
-            
-            Console.WriteLine("Файлы:");
-            var files = Directory.GetFiles(path);
-            foreach (var file in files)
-            {
-                Console.WriteLine(file);
-            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.Message);
         }
     }
 }
