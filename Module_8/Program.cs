@@ -24,6 +24,45 @@ class Program
         }
 
         GetCatalogs();
+
+        try
+        {
+            DirectoryInfo dirInfo = new DirectoryInfo(@"/test");
+            if (!dirInfo.Exists)
+            {
+                dirInfo.Create();
+            }
+
+            dirInfo.CreateSubdirectory("NewFolder");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.Message);
+        }
+
+        GetCatalogs();
+        
+        DirectoryInfo dirInfo2 = new DirectoryInfo(@"/Users/a.chaturov/test");
+        if (!dirInfo2.Exists)
+        {
+            dirInfo2.Create();
+        }
+        
+        dirInfo2.CreateSubdirectory("NewFolder");
+
+        Console.WriteLine($"Название каталога: {dirInfo2.Name}");
+        Console.WriteLine($"Полное название каталога: {dirInfo2.FullName}");
+        Console.WriteLine($"Время создания каталога: {dirInfo2.CreationTime}");
+
+        try
+        {
+            dirInfo2.Delete(true);
+            Console.WriteLine($"Каталог {dirInfo2.FullName} удален");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.Message);
+        }
     }
 
     private static void GetCatalogs()
@@ -53,6 +92,8 @@ class Program
                 Console.Write(Environment.NewLine);
 
                 Console.WriteLine($"Количество: {dirs.Length + files.Length}");
+                
+                Console.Write(Environment.NewLine);
             }
         }
         catch (Exception ex)
