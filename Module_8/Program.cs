@@ -48,12 +48,22 @@ class Program
             dirInfo2.Create();
         }
         
-        dirInfo2.CreateSubdirectory("NewFolder");
+        dirInfo2.CreateSubdirectory("NewFolder1");
+        dirInfo2.CreateSubdirectory("NewFolder2");
 
         Console.WriteLine($"Название каталога: {dirInfo2.Name}");
         Console.WriteLine($"Полное название каталога: {dirInfo2.FullName}");
         Console.WriteLine($"Время создания каталога: {dirInfo2.CreationTime}");
-
+        
+        var path1 = @"/Users/a.chaturov/test/NewFolder1";
+        var path2 = @"/Users/a.chaturov/test/NewFolder2/NewFolder1";
+        
+        DirectoryInfo dirInfo3 = new DirectoryInfo(path1);
+        if (dirInfo3.Exists && !Directory.Exists(path2))
+        {
+            dirInfo3.MoveTo(path2);
+        }
+        
         try
         {
             dirInfo2.Delete(true);
